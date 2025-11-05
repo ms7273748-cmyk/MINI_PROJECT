@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements | ClubSphere</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at bottom right, #141E30, #243B55);
+            color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 60px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        nav .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.7rem;
+            color: #ffcf70;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffcf70;
+        }
+
+        /* Page Header */
+        .announcement-header {
+            text-align: center;
+            padding: 120px 20px 60px;
+        }
+
+        .announcement-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.8rem;
+            background: linear-gradient(90deg, #ffcf70, #f3a683);
+       
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .announcement-header p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Announcement Grid */
+        .announcement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 40px 60px 80px;
+        }
+
+        .announcement-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            animation: fadeInUp 1s ease;
+        }
+
+        .announcement-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px rgba(255, 207, 112, 0.4);
+        }
+
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .announcement-card h3 {
+            color: #ffcf70;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            flex: 1;
+        }
+
+        .announcement-date {
+            color: #bbb;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 15px;
+        }
+
+        .announcement-body {
+            color: #e0e0e0;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .category-badge {
+            background: linear-gradient(90deg, #ffcf70, #f3a683);
+            color: #000;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .btn-read {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #ffcf70, #f3a683);
+            color: #000;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-read:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 207, 112, 0.6);
+        }
+
+        .no-announcements {
+            text-align: center;
+            color: #ddd;
+            font-style: italic;
+            grid-column: 1 / -1;
+            padding: 40px;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(25px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            padding: 30px 10px;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 15px 25px; }
+            nav ul { gap: 15px; }
+            .announcement-grid { padding: 20px; gap: 20px; }
+            .announcement-header h1 { font-size: 2rem; }
+            .announcement-header p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">ClubSphere</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="announcements.html">Announcements</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="announcement-header">
+        <h1>📢 Latest Announcements</h1>
+        <p>Stay updated with the latest news, updates, and important information from all campus clubs.</p>
+    </div>
+
+    <!-- Announcement Grid -->
+    <div class="announcement-grid">
+        <!-- Announcement 1 -->
+        <div class="announcement-card">
+            <div class="category-badge">Important</div>
+            <div class="announcement-header">
+                <h3>Hackathon 2025 Registration Now Open!</h3>
+                <div class="announcement-date">
+                    <i class="fas fa-calendar"></i>
+                    March 1, 2025
+                </div>
+            </div>
+            <p class="announcement-body">
+                The annual coding hackathon is back! Register your team now for 48 hours of innovation, coding, and networking. Limited spots available. Early bird registration ends March 10th.
+            </p>
+            <a href="#" class="btn-read" onclick="showAnnouncementDetails('Hackathon Registration')">Read More</a>
+        </div>
+
+        <!-- Announcement 2 -->
+        <div class="announcement-card">
+            <div class="category-badge">Update</div>
+            <div class="announcement-header">
+                <h3>New Club Membership Portal Launched</h3>
+                <div class="announcement-date">
+                    <i class="fas fa-calendar"></i>
+                    February 28, 2025
+                </div>
+            </div>
+            <p class="announcement-body">
+                Our new and improved membership portal is now live! Easier registration, better event tracking, and enhanced communication features. Update your profiles today.
+            </p>
+            <a href="#" class="btn-read" onclick="showAnnouncementDetails('Portal Launch')">Read More</a>
+        </div>
+
+        <!-- Announcement 3 -->
+        <div class="announcement-card">
+            <div class="category-badge">Event</div>
+            <div class="announcement-header">
+                <h3>AI Workshop Series Starting Next Week</h3>
+                <div class="announcement-date">
+                    <i class="fas fa-calendar"></i>
+                    February 25, 2025
+                </div>
+            </div>
+            <p class="announcement-body">
+                Join our comprehensive AI workshop series covering machine learning, neural networks, and practical applications. Every Saturday for the next 6 weeks. Free for all members!
+            </p>
+            <a href="#" class="btn-read" onclick="showAnnouncementDetails('AI Workshop')">Read More</a>
+        </div>
+
+        <!-- Announcement 4 -->
+        <div class="announcement-card">
+            <div class="category-badge">Opportunity</div>
+            <div class="announcement-header">
+                <h3>Summer Internship Opportunities</h3>
+                <div class="announcement-date">
+                    <i class="fas fa-calendar"></i>
+                    February 20, 2025
+                </div>
+            </div>
+            <p class="announcement-body">
+                Top tech companies are offering summer internships exclusively to our club members. Check the career board for detailed listings and application deadlines.
+            </p>
+            <a href="#" class="btn-read" onclick="showAnnouncementDetails('Internships')">Read More</a>
+        </div>
+
+        <!-- Announcement 5 -->
+        <div class="announcement-card">
+            <div class="category-badge">Achievement</div>
+            <div class="announcement-header">
+                <h3>Our Teams Win at National Tech Fest</h3>
+                <div class="announcement-date">
+                    <i class="fas fa-calendar"></i>
+                    February 15, 2025
+                </div>
+            </div>
+            <p class="announcement-body">
+                Congratulations to our ACM and IEEE teams for securing first and second places at the National Technical Festival! Their innovative projects impressed judges from across the country.
+            </p>
+            <a href="#" class="btn-read" onclick="showAnnouncementDetails('Tech Fest Win')">Read More</a>
+        </div>
+
+        <!-- Announcement 6 -->
+        <div class="announcement-card">
+            <div class="category-badge">Reminder</div>
+            <div class="announcement-header">
+                <h3>Annual General Meeting - Save the Date</h3>
+                <div class="announcement-date">
+                    <i class="fas fa-calendar"></i>
+                    February 10, 2025
+                </div>
+            </div>
+            <p class="announcement-body">
+                Mark your calendars! Our Annual General Meeting will be held on March 30th, 2025. Important decisions about club activities and leadership elections will take place.
+            </p>
+            <a href="#" class="btn-read" onclick="showAnnouncementDetails('AGM Meeting')">Read More</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 ClubSphere. All Rights Reserved. | Connecting passion and innovation across every campus club.</p>
+    </footer>
+
+    <script>
+        function showAnnouncementDetails(title) {
+            alert(`Announcement Details: ${title}\n\nThis is a demo announcement. In the full version, this would show the complete announcement with all details, related links, and action buttons!`);
+        }
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.15)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.08)';
+            }
+        });
+
+        // Add staggered animation to cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.announcement-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>

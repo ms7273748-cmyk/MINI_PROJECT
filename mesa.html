@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MESA - Mechanical Engineering Students Association | ClubSphere</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 60px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        nav .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.7rem;
+            color: #ffcf70;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffcf70;
+        }
+
+        /* Club Hero */
+        .club-hero {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            padding: 100px 20px 80px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .club-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .club-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .club-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .club-tagline {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Club Content */
+        .club-about, .club-section {
+            margin: 60px auto;
+            max-width: 1000px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .club-about h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #ffcf70;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .club-about p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .dashboard-card h3 {
+            color: #ffcf70;
+            margin-bottom: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .dashboard-card p {
+            color: #e0e0e0;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .event-date {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .no-data {
+            color: #ddd;
+            font-style: italic;
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 40px;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .team-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            width: 220px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(6px);
+            text-align: center;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        .team-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 2rem;
+        }
+
+        .team-card h3 {
+            color: #ffcf70;
+            margin-bottom: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .team-card p {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* Join Button */
+        .join-section {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .btn-join {
+            background: linear-gradient(90deg, #ffcf70, #f3a683);
+            color: #000;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        .btn-join:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 207, 112, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            padding: 30px 10px;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 15px 25px; }
+            nav ul { gap: 15px; }
+            .club-hero { padding: 80px 20px 60px; }
+            .club-hero h1 { font-size: 2rem; }
+            .club-tagline { font-size: 1.1rem; }
+            .club-about, .club-section { margin: 40px 20px; }
+            .team-grid { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">ClubSphere</div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../events.html">Events</a></li>
+            <li><a href="../announcements.html">Announcements</a></li>
+            <li><a href="../login.html">Login</a></li>
+            <li><a href="../dashboard.html">Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <!-- Club Hero -->
+    <div class="club-hero">
+        <div class="club-logo">⚙️</div>
+        <h1>MESA - Mechanical Engineering Students Association</h1>
+        <p class="club-tagline">Innovation through Engineering Precision 🔧</p>
+    </div>
+
+    <!-- About Section -->
+    <div class="club-about container">
+        <h2>About MESA</h2>
+        <p>
+            The Mechanical Engineering Students Association (MESA) is dedicated to empowering mechanical engineers with practical knowledge, industrial exposure, and collaborative learning through events, workshops, and technical competitions. We bridge the gap between theory and practice.
+        </p>
+    </div>
+
+    <!-- Recent Events -->
+    <div class="club-section container">
+        <h2>⚙️ Recent Events</h2>
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h3>Robotics Design Competition</h3>
+                <p>Inter-college robotics competition featuring autonomous robots competing in challenging obstacle courses.</p>
+                <div class="event-date">
+                    <i class="fas fa-calendar"></i>
+                    January 20, 2025
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>3D Printing Workshop</h3>
+                <p>Hands-on workshop covering 3D modeling, slicing software, and operating 3D printers for rapid prototyping.</p>
+                <div class="event-date">
+                    <i class="fas fa-calendar"></i>
+                    December 15, 2024
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Industrial Automation Seminar</h3>
+                <p>Expert session on PLC programming, SCADA systems, and Industry 4.0 technologies in modern manufacturing.</p>
+                <div class="event-date">
+                    <i class="fas fa-calendar"></i>
+                    November 30, 2024
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Announcements -->
+    <div class="club-section container">
+        <h2>📢 Announcements</h2>
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h3>Summer Internship Opportunities</h3>
+                <p>Leading automotive and manufacturing companies offering internships. Apply by March 20th!</p>
+                <div class="event-date">
+                    <i class="fas fa-clock"></i>
+                    3 days ago
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Project Expo Registration Open</h3>
+                <p>Display your innovative mechanical projects at our annual tech expo. Cash prizes for best innovations!</p>
+                <div class="event-date">
+                    <i class="fas fa-clock"></i>
+                    1 week ago
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>CAD Design Certification Course</h3>
+                <p>Professional certification in SolidWorks and AutoCAD. Industry-recognized certificate upon completion.</p>
+                <div class="event-date">
+                    <i class="fas fa-clock"></i>
+                    2 weeks ago
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="club-section container">
+        <h2>👷‍♂️ Meet the Team</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 2rem;">👨‍🔧</div>
+                <h3>Rohan Patil</h3>
+                <p>President</p>
+            </div>
+            <div class="team-card">
+                <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 2rem;">👩‍🔧</div>
+                <h3>Sakshi More</h3>
+                <p>Vice President</p>
+            </div>
+            <div class="team-card">
+                <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 2rem;">👨‍🏭</div>
+                <h3>Aditya Pawar</h3>
+                <p>Technical Head</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Join Section -->
+    <div class="join-section">
+        <a href="../login.html" class="btn-join">
+            <i class="fas fa-user-plus"></i>
+            Join MESA Chapter
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 ClubSphere. All Rights Reserved. | Connecting passion and innovation across every campus club.</p>
+    </footer>
+
+    <script>
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.15)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.08)';
+            }
+        });
+
+        // Animate cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(20px)';
+                    entry.target.style.transition = 'all 0.6s ease';
+                    
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.dashboard-card, .team-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

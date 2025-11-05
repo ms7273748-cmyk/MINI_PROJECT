@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard | ClubSphere</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    /* === Base Theme === */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0a0f24, #162447, #1f4068);
+      color: #f0f4ff;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* === Navbar === */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 60px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #4fc3f7;
+      letter-spacing: 1px;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+    nav ul li a {
+      font-weight: 500;
+      color: #dce3ff;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      color: #4fc3f7;
+    }
+
+    /* === Dashboard Core === */
+    .user-dashboard {
+      padding: 90px 40px;
+      text-align: center;
+    }
+
+    .dashboard-title {
+      font-size: 2.4rem;
+      color: #4fc3f7;
+      margin-bottom: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .dashboard-subtitle {
+      color: #b5c0d0;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+    }
+
+    /* === Stats === */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      margin-bottom: 60px;
+    }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      backdrop-filter: blur(12px);
+      transition: 0.3s;
+    }
+    .stat-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-6px);
+    }
+    .stat-card h2 {
+      font-size: 2rem;
+      color: #4fc3f7;
+      margin-bottom: 10px;
+    }
+    .stat-card p {
+      color: #c7d2e0;
+      font-size: 0.95rem;
+    }
+
+    /* === Quick Actions === */
+    .quick-actions {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+    }
+    .action-btn {
+      background: linear-gradient(45deg, #1b74e4, #4fc3f7);
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+    }
+    .action-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(79, 195, 247, 0.5);
+    }
+
+    /* === Section Styling === */
+    .hidden-section {
+      display: none;
+      margin-top: 50px;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+    }
+
+    .dashboard-card {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s ease;
+    }
+    .dashboard-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-5px);
+    }
+    .dashboard-card h3 {
+      color: #4fc3f7;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    .dashboard-card p {
+      color: #d5deef;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .event-date {
+      color: #b1bdd6;
+      font-size: 0.9rem;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* === Featured Clubs Section === */
+    .features {
+      margin-top: 60px;
+      padding: 40px 20px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+    }
+
+    .features-showcase {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .feature-navigation {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .nav-item {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 18px 28px;
+      border-radius: 15px;
+      width: 140px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item.active {
+      background: linear-gradient(45deg, #1b74e4, #4fc3f7);
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    .nav-item-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .nav-item h4 {
+      margin: 0;
+      color: #4fc3f7;
+      font-weight: 600;
+    }
+
+    .nav-item p {
+      color: #cbd6f0;
+      font-size: 0.85rem;
+    }
+
+    .feature-display {
+      margin-top: 20px;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .feature-panel {
+      display: none;
+      text-align: center;
+      color: #d5deef;
+    }
+
+    .feature-panel.active {
+      display: block;
+    }
+
+    .feature-panel h3 {
+      color: #4fc3f7;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .feature-cta {
+      display: inline-block;
+      margin-top: 15px;
+      color: #fff;
+      background: linear-gradient(45deg, #1b74e4, #4fc3f7);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .feature-cta:hover {
+      box-shadow: 0 0 15px rgba(79, 195, 247, 0.6);
+      transform: scale(1.05);
+    }
+
+    /* === Logout + Footer === */
+    .logout-section {
+      margin-top: 60px;
+    }
+    .btn-logout {
+      background: linear-gradient(45deg, #ff1744, #ff4081);
+      padding: 12px 28px;
+      border-radius: 30px;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.3s ease;
+    }
+    .btn-logout:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 64, 129, 0.5);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      color: #8c98b3;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+      margin-top: 60px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 15px 25px; }
+      nav ul { gap: 12px; }
+      .user-dashboard { padding: 70px 20px; }
+      .stats-grid, .dashboard-grid { grid-template-columns: 1fr; }
+      .quick-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">ClubSphere</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Events</a></li>
+      <li><a href="#">Announcements</a></li>
+      <li><a href="#">Login</a></li>
+      <li><a href="#">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <section class="user-dashboard">
+    <h1 class="dashboard-title">👋 Welcome, Mitesh Sawant</h1>
+    <p class="dashboard-subtitle">Here's what's happening in your clubs today.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card"><h2>4</h2><p>Upcoming Events</p></div>
+      <div class="stat-card"><h2>3</h2><p>Latest Announcements</p></div>
+      <div class="stat-card"><h2>6</h2><p>Clubs Joined</p></div>
+      <div class="stat-card"><h2>12</h2><p>Events Attended</p></div>
+    </div>
+
+    <div class="quick-actions">
+      <button class="action-btn" onclick="toggleSection('events')"><i class="fas fa-calendar"></i>Browse Events</button>
+      <button class="action-btn" onclick="toggleSection('announcements')"><i class="fas fa-bullhorn"></i>View Announcements</button>
+      <button class="action-btn" onclick="toggleSection('profile')"><i class="fas fa-user"></i>My Profile</button>
+      <button class="action-btn" onclick="toggleSection('clubs')"><i class="fas fa-sitemap"></i>My Clubs</button>
+    </div>
+
+    <div id="events" class="hidden-section">
+      <h2>🎉 Upcoming Events</h2>
+      <div class="dashboard-grid">
+        <div class="dashboard-card">
+          <h3>Annual Coding Hackathon 2025</h3>
+          <p>48 hours of innovation and coding. Win prizes and recognition.</p>
+          <div class="event-date"><i class="fas fa-calendar"></i> March 15–17, 2025</div>
+        </div>
+        <div class="dashboard-card">
+          <h3>AI & Machine Learning Workshop</h3>
+          <p>Hands-on learning with Python and TensorFlow by experts.</p>
+          <div class="event-date"><i class="fas fa-calendar"></i> March 22, 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="announcements" class="hidden-section">
+      <h2>📢 Latest Announcements</h2>
+      <div class="dashboard-grid">
+        <div class="dashboard-card">
+          <h3>Hackathon Registration Open!</h3>
+          <p>Teams can now register for the 2025 Hackathon. Don’t miss it!</p>
+          <div class="event-date"><i class="fas fa-clock"></i> 2 days ago</div>
+        </div>
+        <div class="dashboard-card">
+          <h3>New Club Portal Launched</h3>
+          <p>Simplified registration and better event management available now.</p>
+          <div class="event-date"><i class="fas fa-clock"></i> 3 days ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="profile" class="hidden-section">
+      <h2>👤 My Profile</h2>
+      <div class="dashboard-card">
+        <p><strong>Name:</strong> Mitesh Sawant</p>
+        <p><strong>Email:</strong> ms@gmail.com</p>
+        <p><strong>Member Since:</strong> January 2024</p>
+        <p><strong>Events Attended:</strong> 12</p>
+      </div>
+    </div>
+
+    <div id="clubs" class="hidden-section">
+      <h2>🏛️ My Clubs</h2>
+      <div class="dashboard-grid">
+        <div class="dashboard-card"><h3>ACM</h3><p>Association for Computing Machinery</p></div>
+        <div class="dashboard-card"><h3>ACES</h3><p>Computer Engineering Society</p></div>
+        <div class="dashboard-card"><h3>IEEE</h3><p>Institute of Electrical and Electronics Engineers</p></div>
+        <div class="dashboard-card"><h3>MESA</h3><p>Mechanical Engineering Students Association</p></div>
+        <div class="dashboard-card"><h3>CESA</h3><p>Civil Engineering Students Association</p></div>
+        <div class="dashboard-card"><h3>ITSA</h3><p>Information Technology Students Association</p></div>
+      </div>
+
+    
+    </div>
+
+    <div class="logout-section">
+      <a href="#" class="btn-logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
+    </div>
+  </section>
+
+  <footer>© 2025 ClubSphere. All Rights Reserved.</footer>
+
+  <script>
+    function toggleSection(id) {
+      const sections = document.querySelectorAll('.hidden-section');
+      sections.forEach((sec) => (sec.style.display = 'none'));
+      const target = document.getElementById(id);
+      if (target) target.style.display = 'block';
+      window.scrollTo({ top: target.offsetTop - 50, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

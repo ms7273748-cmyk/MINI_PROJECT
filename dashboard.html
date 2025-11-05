@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | ClubSphere</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top right, #1f1c2c, #928dab);
+            color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 60px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+
+        nav .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.7rem;
+            color: #ffcf70;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffcf70;
+        }
+
+        /* Dashboard Selector */
+        .dashboard-selector {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            max-width: 600px;
+            margin: 0 20px;
+        }
+
+        .dashboard-selector h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #ffcf70, #f3a683);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-selector p {
+            color: #ddd;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .dashboard-options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dashboard-option {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .dashboard-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            border-color: rgba(255, 207, 112, 0.5);
+        }
+
+        .dashboard-option h3 {
+            color: #ffcf70;
+            margin-bottom: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dashboard-option p {
+            color: #e0e0e0;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            padding: 20px 10px;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 15px 25px; }
+            nav ul { gap: 15px; }
+            .dashboard-selector { margin: 0 20px 80px; }
+            .dashboard-selector h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">ClubSphere</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="announcements.html">Announcements</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dashboard Selector -->
+    <div class="dashboard-selector">
+        <h1>Choose Your Dashboard</h1>
+        <p>Select the appropriate dashboard based on your role to access the features you need.</p>
+
+        <div class="dashboard-options">
+            <div class="dashboard-option" onclick="selectDashboard('admin')">
+                <h3><i class="fas fa-crown"></i> Admin Dashboard</h3>
+                <p>Full system management access. Manage users, events, announcements, and club settings. Perfect for administrators and club presidents.</p>
+            </div>
+
+            <div class="dashboard-option" onclick="selectDashboard('user')">
+                <h3><i class="fas fa-user"></i> User Dashboard</h3>
+                <p>Personal dashboard for club members. View your events, announcements, club memberships, and activity history.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 ClubSphere. All Rights Reserved. | Connecting passion and innovation across every campus club.</p>
+    </footer>
+
+    <script>
+        function selectDashboard(type) {
+            if (type === 'admin') {
+                // Check if user is logged in as admin (for demo purposes)
+                const isLoggedIn = confirm('Admin Dashboard Access\n\nThis will redirect you to the admin dashboard.\n\nNote: For demo purposes, you can access the admin dashboard directly.\n\nClick OK to continue to Admin Dashboard or Cancel to stay here.');
+                
+                if (isLoggedIn) {
+                    window.location.href = 'admin-dashboard.html';
+                }
+            } else {
+                // Redirect to user dashboard
+                window.location.href = 'user-dashboard.html';
+            }
+        }
+
+        // Auto-redirect if user is already logged in (for demo)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if there's any user session info in URL params
+            const urlParams = new URLSearchParams(window.location.search);
+            const userType = urlParams.get('user');
+            
+            if (userType === 'admin') {
+                window.location.href = 'admin-dashboard.html';
+            } else if (userType === 'user') {
+                window.location.href = 'user-dashboard.html';
+            }
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === '1') {
+                selectDashboard('admin');
+            } else if (e.key === '2') {
+                selectDashboard('user');
+            }
+        });
+    </script>
+</body>
+</html>

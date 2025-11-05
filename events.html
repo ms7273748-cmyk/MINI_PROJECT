@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | ClubSphere</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top left, #0f0c29, #302b63, #24243e);
+            color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 60px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        nav .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.7rem;
+            color: #ffcf70;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffcf70;
+        }
+
+        /* Page Header */
+        .event-header {
+            text-align: center;
+            padding: 120px 20px 60px;
+        }
+
+        .event-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.8rem;
+            background: linear-gradient(90deg, #ffcf70, #f3a683);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .event-header p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Event Grid */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 40px 60px 80px;
+        }
+
+        .event-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 207, 112, 0.4);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover .event-image img {
+            transform: scale(1.1);
+        }
+
+        .event-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-card h3 {
+            color: #ffcf70;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .event-date {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .event-desc {
+            color: #e0e0e0;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .btn-view {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #ffcf70, #f3a683);
+            color: #000;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 207, 112, 0.6);
+        }
+
+        .no-events {
+            text-align: center;
+            color: #ddd;
+            font-style: italic;
+            grid-column: 1 / -1;
+            padding: 40px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            padding: 30px 10px;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 15px 25px; }
+            nav ul { gap: 15px; }
+            .event-grid { padding: 20px; gap: 20px; }
+            .event-header h1 { font-size: 2rem; }
+            .event-header p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">ClubSphere</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="announcements.html">Announcements</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="event-header">
+        <h1>🎉 Upcoming & Past Events</h1>
+        <p>Discover exciting events happening across all campus clubs. From workshops to hackathons, there's something for everyone.</p>
+    </div>
+
+    <!-- Event Grid -->
+    <div class="event-grid">
+        <!-- Event 1 -->
+        <div class="event-card">
+            <div class="event-image">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=200&fit=crop" alt="Hackathon 2025">
+            </div>
+            <div class="event-content">
+                <h3>Annual Coding Hackathon 2025</h3>
+                <div class="event-date">
+                    <i class="fas fa-calendar"></i>
+                    March 15-17, 2025
+                </div>
+                <p class="event-desc">
+                    Join us for 48 hours of non-stop coding! Build innovative solutions, network with peers, and win amazing prizes. Open to all skill levels.
+                </p>
+                <a href="#" class="btn-view" onclick="showEventDetails('Hackathon 2025')">View Details</a>
+            </div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="event-card">
+            <div class="event-image">
+                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=200&fit=crop" alt="AI Workshop">
+            </div>
+            <div class="event-content">
+                <h3>AI & Machine Learning Workshop</h3>
+                <div class="event-date">
+                    <i class="fas fa-calendar"></i>
+                    March 22, 2025
+                </div>
+                <p class="event-desc">
+                    Learn the fundamentals of AI and ML from industry experts. Hands-on sessions with Python, TensorFlow, and real-world applications.
+                </p>
+                <a href="#" class="btn-view" onclick="showEventDetails('AI Workshop')">View Details</a>
+            </div>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="event-card">
+            <div class="event-image">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop" alt="Tech Talk">
+            </div>
+            <div class="event-content">
+                <h3>Future of Technology Talk</h3>
+                <div class="event-date">
+                    <i class="fas fa-calendar"></i>
+                    March 28, 2025
+                </div>
+                <p class="event-desc">
+                    Distinguished speakers from top tech companies share insights on emerging technologies and career opportunities in the industry.
+                </p>
+                <a href="#" class="btn-view" onclick="showEventDetails('Tech Talk')">View Details</a>
+            </div>
+        </div>
+
+        <!-- Event 4 -->
+        <div class="event-card">
+            <div class="event-image">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=200&fit=crop" alt="Networking Event">
+            </div>
+            <div class="event-content">
+                <h3>Industry Networking Night</h3>
+                <div class="event-date">
+                    <i class="fas fa-calendar"></i>
+                    April 5, 2025
+                </div>
+                <p class="event-desc">
+                    Connect with industry professionals, alumni, and potential employers. Perfect opportunity for internships and career growth.
+                </p>
+                <a href="#" class="btn-view" onclick="showEventDetails('Networking Night')">View Details</a>
+            </div>
+        </div>
+
+        <!-- Event 5 -->
+        <div class="event-card">
+            <div class="event-image">
+                <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=400&h=200&fit=crop" alt="Design Workshop">
+            </div>
+            <div class="event-content">
+                <h3>UI/UX Design Workshop</h3>
+                <div class="event-date">
+                    <i class="fas fa-calendar"></i>
+                    April 12, 2025
+                </div>
+                <p class="event-desc">
+                    Master the art of user interface and experience design. Learn industry-standard tools and create stunning digital experiences.
+                </p>
+                <a href="#" class="btn-view" onclick="showEventDetails('Design Workshop')">View Details</a>
+            </div>
+        </div>
+
+        <!-- Event 6 -->
+        <div class="event-card">
+            <div class="event-image">
+                <img src="https://images.unsplash.com/photo-1553877522-6494745c1044?w=400&h=200&fit=crop" alt="Startup Pitch">
+            </div>
+            <div class="event-content">
+                <h3>Startup Pitch Competition</h3>
+                <div class="event-date">
+                    <i class="fas fa-calendar"></i>
+                    April 20, 2025
+                </div>
+                <p class="event-desc">
+                    Got a brilliant startup idea? Pitch it to investors and mentors. Win funding opportunities and mentorship for your venture.
+                </p>
+                <a href="#" class="btn-view" onclick="showEventDetails('Pitch Competition')">View Details</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 ClubSphere. All Rights Reserved. | Connecting passion and innovation across every campus club.</p>
+    </footer>
+
+    <script>
+        function showEventDetails(eventName) {
+            alert(`Event Details: ${eventName}\n\nThis is a demo event. In the full version, this would show detailed event information, registration options, and more!`);
+        }
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.15)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.08)';
+            }
+        });
+    </script>
+</body>
+</html>

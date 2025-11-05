@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClubSphere - Where Passion Meets Innovation</title>
+
+  <style>
+    /* Fonts (imported inline for offline usability) */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+    /* Font Awesome CDN for icons */
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #00b894;
+      --secondary: #007c5f;
+      --accent: #ff6b6b;
+      --light-bg: #f8fffb;
+      --dark-text: #1c1c1c;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #e8fdf3, #f5fff9);
+      color: var(--dark-text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* Background */
+    .bio-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at 30% 30%, #b4ffe0 0%, transparent 60%),
+                  radial-gradient(circle at 70% 70%, #b6e5ff 0%, transparent 60%);
+      z-index: -3;
+    }
+
+    .organic-shapes .leaf {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.6;
+      animation: float 12s ease-in-out infinite alternate;
+    }
+
+    .leaf-1 { width: 240px; height: 240px; top: 12%; left: 20%; background: #bafad3; }
+    .leaf-2 { width: 200px; height: 200px; bottom: 18%; right: 25%; background: #a5f2ff; }
+    .leaf-3 { width: 300px; height: 300px; top: 40%; right: 10%; background: #d8ffe4; }
+
+    @keyframes float {
+      from { transform: translateY(0) rotate(0deg); }
+      to { transform: translateY(-30px) rotate(15deg); }
+    }
+
+    /* Navbar */
+    nav {
+      width: 100%;
+      position: fixed;
+      top: 0; left: 0;
+      padding: 18px 60px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled { background: rgba(255, 255, 255, 0.9); }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-link {
+      color: #333;
+      font-weight: 500;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 0%;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after { width: 100%; }
+
+    .nav-link:hover, .nav-link.active { color: var(--primary); }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      height: 3px; width: 25px;
+      background: #333;
+      margin-bottom: 5px;
+      border-radius: 2px;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 180px 5% 120px;
+      min-height: 100vh;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      gap: 60px;
+    }
+
+    .hero-text { flex: 1 1 480px; }
+
+    .hero-text h1 {
+      font-size: 3.2rem;
+      color: var(--secondary);
+      margin-bottom: 20px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .hero-text p {
+      font-size: 1.15rem;
+      color: #444;
+      margin-bottom: 35px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(0, 184, 148, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 184, 148, 0.4);
+    }
+
+    .btn-secondary {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .hero-visual { flex: 1 1 400px; text-align: center; }
+
+    .bio-sphere {
+      width: 280px; height: 280px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #baf8d7, #91f2ff);
+      box-shadow: 0 0 40px rgba(0, 184, 148, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .text-circle {
+      position: absolute;
+      width: 100%; height: 100%;
+      font-weight: 600;
+      color: #005945;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      animation: fadeRotate 12s infinite;
+    }
+
+    .text-circle:nth-child(1) { animation-delay: 0s; }
+    .text-circle:nth-child(2) { animation-delay: 4s; }
+    .text-circle:nth-child(3) { animation-delay: 8s; }
+
+    @keyframes fadeRotate {
+      0% { opacity: 0; transform: scale(0.8) rotate(-10deg); }
+      10%, 30% { opacity: 1; transform: scale(1) rotate(0deg); }
+      40%, 100% { opacity: 0; transform: scale(0.8) rotate(10deg); }
+    }
+
+    /* Stats */
+    .stats {
+      background: var(--light-bg);
+      padding: 100px 5%;
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      text-align: center;
+      gap: 40px;
+    }
+
+    .stat-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 6px 16px var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-item:hover { transform: translateY(-8px); }
+
+    .stat-item h3 { font-size: 2.4rem; color: var(--secondary); }
+    .stat-item p { color: #555; margin-top: 10px; }
+
+    /* Features */
+    .features {
+      padding: 120px 5%;
+      background: linear-gradient(180deg, #f8fffb, #eafff4);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.6rem;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--secondary);
+      margin-bottom: 60px;
+    }
+
+    .features-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+    }
+
+    .feature-navigation {
+      flex: 1 1 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .nav-item {
+      background: #fff;
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-item.active, .nav-item:hover {
+      border-color: var(--primary);
+      background: #eafff4;
+      transform: translateY(-4px);
+    }
+
+    .feature-display {
+      flex: 1 1 520px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 50px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+
+    .feature-panel {
+      display: none;
+      animation: fadeIn 0.6s forwards;
+    }
+
+    .feature-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--secondary);
+      color: #fff;
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    footer h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    footer p { opacity: 0.9; margin-bottom: 8px; }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      nav { padding: 15px 25px; }
+      .menu-toggle { display: flex; }
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 70px; right: 25px;
+        background: rgba(255, 255, 255, 0.95);
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      }
+      .nav-menu.show { display: flex; }
+      .hero-text h1 { font-size: 2.3rem; }
+      .bio-sphere { width: 220px; height: 220px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 140px 5% 80px; }
+      .hero-text h1 { font-size: 2rem; }
+      .hero-text p { font-size: 1rem; }
+      .feature-display { padding: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bio-bg"></div>
+  <div class="organic-shapes">
+    <div class="leaf leaf-1"></div>
+    <div class="leaf leaf-2"></div>
+    <div class="leaf leaf-3"></div>
+  </div>
+
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">🌐 ClubSphere</a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#" class="nav-link active">Home</a></li>
+        <li><a href="#" class="nav-link">Events</a></li>
+        <li><a href="#" class="nav-link">Announcements</a></li>
+        <li><a href="#" class="nav-link">Login</a></li>
+        <li><a href="#" class="nav-link">Dashboard</a></li>
+      </ul>
+      <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Where Passion Meets Innovation</h1>
+        <p>Empowering students to connect, collaborate, and create — all through ClubSphere, your all-in-one club management system.</p>
+        <div class="hero-buttons">
+               <a href="events.html" class="btn btn-primary">🚀 Explore Events</a>
+                    <a href="login.php" class="btn btn-secondary">🔑 Get Started</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="bio-sphere">
+          <div class="text-circle">CLUB • EVENT</div>
+          <div class="text-circle">LEARN • GROW</div>
+          <div class="text-circle">CONNECT • INNOVATE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stats-container">
+      <div class="stat-item"><h3>50+</h3><p>Active Clubs</p></div>
+      <div class="stat-item"><h3>200+</h3><p>Events Hosted</p></div>
+      <div class="stat-item"><h3>5000+</h3><p>Registered Members</p></div>
+      <div class="stat-item"><h3>100%</h3><p>Campus Engagement</p></div>
+    </div>
+  </section>
+
+  <section class="features">
+    <h2 class="section-title">Featured Clubs</h2>
+    <div class="features-showcase">
+      <div class="feature-navigation">
+        <div class="nav-item active" data-feature="acm"><h4>💻 ACM</h4><p>Computing & Innovation</p></div>
+        <div class="nav-item" data-feature="aces"><h4>🧠 ACES</h4><p>Computer Engineering Society</p></div>
+        <div class="nav-item" data-feature="mesa"><h4>⚙️ MESA</h4><p>Mechanical Engineers</p></div>
+        <div class="nav-item" data-feature="cesa"><h4>🏗️ CESA</h4><p>Civil Engineers</p></div>
+        <div class="nav-item" data-feature="ieee"><h4>🔌 IEEE</h4><p>Electrical & Electronics</p></div>
+        <div class="nav-item" data-feature="itsa"><h4>🌐 ITSA</h4><p>Information Technology</p></div>
+      </div>
+
+      <div class="feature-display">
+        <div class="feature-panel active" id="acm">
+          <h3>ACM – Computing & Innovation</h3>
+          <p>Leading coding culture across campus with hackathons, AI workshops, and developer communities.</p>
+        </div>
+        <div class="feature-panel" id="aces">
+          <h3>ACES – Computer Engineers</h3>
+          <p>Empowering budding engineers through fests, projects, and mentorship.</p>
+        </div>
+        <div class="feature-panel" id="mesa">
+          <h3>MESA – Mechanical Engineers</h3>
+          <p>Where creativity meets mechanics — designing, building, and breaking limits.</p>
+        </div>
+        <div class="feature-panel" id="cesa">
+          <h3>CESA – Civil Engineers</h3>
+          <p>Building foundations for a better tomorrow with civil innovation.</p>
+        </div>
+        <div class="feature-panel" id="ieee">
+          <h3>IEEE – Electrical Engineers</h3>
+          <p>Innovating the future through research and technical excellence.</p>
+        </div>
+        <div class="feature-panel" id="itsa">
+          <h3>ITSA – Information Technology</h3>
+          <p>Driving digital transformation through knowledge and innovation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h3>ClubSphere</h3>
+    <p>Connecting passion and innovation across every campus club.</p>
+    <p>© 2025 ClubSphere. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('show');
+      menuToggle.classList.toggle('active');
+    });
+
+    // Feature tabs
+    const featureTabs = document.querySelectorAll('.nav-item');
+    const featurePanels = document.querySelectorAll('.feature-panel');
+    featureTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        featureTabs.forEach(t => t.classList.remove('active'));
+        featurePanels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        const panel = document.getElementById(tab.dataset.feature);
+        if (panel) panel.classList.add('active');
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      navbar.classList.toggle('scrolled', window.scrollY > 80);
+    });
+  </script>
+</body>
+</html>
